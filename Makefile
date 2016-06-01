@@ -20,7 +20,7 @@ ifeq ($(GPU_SUPPORT),1)
 		dpkg -i cuda-repo-ubuntu1404_7.5-18_amd64.deb; \
 		apt-get update; \
 		apt-get -y install cuda-toolkit-7.5
-	tar xfzv scripts/cudnn-7.5-linux-x64-v5.0-ga.tgz; \
+	tar xfzv downloads/cudnn-7.5-linux-x64-v5.0-ga.tgz; \
 		cp cuda/lib64/* /usr/local/cuda/lib64/.; \
 		cp cuda/include/* /usr/local/cuda/include/.; \
 		rm -rf cuda
