@@ -1,7 +1,7 @@
 
 # Deep Learning Base Image
 
-Today's deep learning frameworks require an extraordinary amount of work to install and run. This Docker container bundles all popular deep learning frameworks into a single Docker image. Ubuntu Linux is the OS of choice for base of this image (it is a requirement for CUDA and all DL frameworks play nice with it).
+Today's deep learning frameworks require an extraordinary amount of work to install and run. This Docker container bundles all popular deep learning frameworks into a single Docker instance. Ubuntu Linux is the base OS of choice for this container (it is a requirement for CUDA and all DL frameworks play nice with it).
 
 Supported DL frameworks:
 
