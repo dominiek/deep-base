@@ -36,4 +36,8 @@ install:
 
 .PHONY: load_test
 load_test:
+ifeq ($(GPU_SUPPORT),1)
+	LD_LIBRARY_PATH=$(LD_LIBRARY_PATH):/usr/local/cuda/lib64 python test/load.py
+else
 	python test/load.py
+endif

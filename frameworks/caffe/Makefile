@@ -25,16 +25,17 @@ else
 endif
 	cd src; make all
 	cd src; make pycaffe
-	cd src; make test
-	cd src; make runtest
 
 .PHONY: install
 install:
 	cd src; make distribute
 	export PYTHONPATH=/workdir/frameworks/caffe/src/python:$$PYTHONPATH
 	echo 'export PYTHONPATH=/workdir/frameworks/caffe/src/python:$$PYTHONPATH' >> ~/.bashrc
-	ln -s /dev/null /dev/raw1394
 
 .PHONY: load_test
 load_test:
-	PYTHONPATH=/workdir/frameworks/v/src/python:$(PYTHONPATH) python test/load.py
+ifeq ($(GPU_SUPPORT),1)
+	LD_LIBRARY_PATH=$(LD_LIBRARY_PATH):/usr/local/cuda/lib64 PYTHONPATH=/workdir/frameworks/caffe/src/python:$(PYTHONPATH) python test/load.py
+else
+	PYTHONPATH=/workdir/frameworks/caffe/src/python:$(PYTHONPATH) python test/load.py
+endif

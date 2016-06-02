@@ -1,5 +1,14 @@
 FROM ubuntu:14.04
+
 ARG GPU_SUPPORT
+
+ENV PYTHONPATH="/workdir/frameworks/mxnet/src/python:/workdir/frameworks/caffe/src/python:/workdir/frameworks/caffe/src/python:"
+ENV PATH="/workdir/frameworks/torch/src/install/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+ENV DYLD_LIBRARY_PATH="/workdir/frameworks/torch/src/install/lib:"
+ENV LD_LIBRARY_PATH="/workdir/frameworks/torch/src/install/lib::/usr/local/cuda/lib64"
+ENV LUA_CPATH="/workdir/frameworks/torch/src/install/lib/?.so;/root/.luarocks/lib/lua/5.1/?.so;/workdir/frameworks/torch/src/install/lib/lua/5.1/?.so;./?.so;/usr/local/lib/lua/5.1/?.so;/usr/local/lib/lua/5.1/loadall.so"
+ENV LUA_PATH="/root/.luarocks/share/lua/5.1/?.lua;/root/.luarocks/share/lua/5.1/?/init.lua;/workdir/frameworks/torch/src/install/share/lua/5.1/?.lua;/workdir/frameworks/torch/src/install/share/lua/5.1/?/init.lua;./?.lua;/workdir/frameworks/torch/src/install/share/luajit-2.1.0-beta1/?.lua;/usr/local/share/lua/5.1/?.lua;/usr/local/share/lua/5.1/?/init.lua"
+
 WORKDIR /workdir
 ADD . /workdir
 RUN apt-get update --fix-missing
@@ -13,7 +22,7 @@ RUN make dependencies
 RUN make src
 RUN make build
 RUN make install
-RUN make test
+RUN make load_test
 
 # Compile Tensorflow
 WORKDIR /workdir/frameworks/tensorflow
@@ -50,3 +59,4 @@ RUN make load_test
 # Cleanup to make container smaller
 WORKDIR /workdir
 RUN make clean_global_dependencies
+RUN ln -s /dev/null /dev/raw1394

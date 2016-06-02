@@ -1,6 +1,8 @@
 
 .PHONY: dependencies
 dependencies:
+	apt-get -y install libboost-python-dev cmake
+	pip install dlib
 	. ~/.bashrc; for lib in dpnn nn optim optnet csvigo cutorch cunn fblualib torchx tds; do \
 		luarocks install $$lib ; \
 	done
