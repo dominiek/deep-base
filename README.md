@@ -7,8 +7,12 @@ Supported DL frameworks:
 
 - [Tensorflow](https://www.tensorflow.org/)
 - [Caffe](http://caffe.berkeleyvision.org/)
+- [Theano](http://deeplearning.net/software/theano/)
+- [Keras](http://keras.io/)
 - [MXNet](http://mxnet.readthedocs.io/en/latest/)
 - [Torch](http://torch.ch/)
+- [Chainer](http://chainer.org/)
+- [Neon](http://neon.nervanasys.com/docs/latest/index.html)
 
 Other ML frameworks:
 

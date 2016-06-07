@@ -14,6 +14,8 @@ dependencies:
 	rm -f bazel-0.2.3-jdk7-installer-linux-x86_64.sh
 	bash /usr/local/lib/bazel/bin/bazel-complete.bash
 	apt-get -y install swig
+	pip install protobuf==3.0.0b2.post1
+	pip install six --upgrade --target="/usr/lib/python2.7/dist-packages"
 
 .PHONY: src
 src:
