@@ -22,8 +22,6 @@ global_dependencies:
 	pip install cython
 	pip install scikit-learn
 	pip install bhtsne
-	pip install redis
-	pip install celery
 ifeq ($(GPU_SUPPORT),1)
 	@echo "Building with GPU support, installing CUDA/CUDNN"
 	-curl -O http://developer.download.nvidia.com/compute/cuda/repos/ubuntu1404/x86_64/cuda-repo-ubuntu1404_7.5-18_amd64.deb; \
@@ -42,7 +40,7 @@ endif
 
 .PHONY: clean_global_dependencies
 clean_global_dependencies:
-	apt-get remove -y g++ git-core curl gcc make cmake
+	apt-get remove -y g++ git-core curl
 ifeq ($(GPU_SUPPORT),1)
-	apt-get remove -y cuda-samples-7-5 cuda-documentation-7-5 cuda-visual-tools-7-5
+	apt-get remove -y cuda-visual-tools-7-5
 endif

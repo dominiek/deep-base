@@ -9,12 +9,13 @@ ENV LD_LIBRARY_PATH="/workdir/frameworks/torch/src/install/lib::/usr/local/cuda/
 ENV LUA_CPATH="/workdir/frameworks/torch/src/install/lib/?.so;/root/.luarocks/lib/lua/5.1/?.so;/workdir/frameworks/torch/src/install/lib/lua/5.1/?.so;./?.so;/usr/local/lib/lua/5.1/?.so;/usr/local/lib/lua/5.1/loadall.so"
 ENV LUA_PATH="/root/.luarocks/share/lua/5.1/?.lua;/root/.luarocks/share/lua/5.1/?/init.lua;/workdir/frameworks/torch/src/install/share/lua/5.1/?.lua;/workdir/frameworks/torch/src/install/share/lua/5.1/?/init.lua;./?.lua;/workdir/frameworks/torch/src/install/share/luajit-2.1.0-beta1/?.lua;/usr/local/share/lua/5.1/?.lua;/usr/local/share/lua/5.1/?/init.lua"
 
-WORKDIR /workdir
-ADD . /workdir
 RUN apt-get update --fix-missing
 RUN apt-get -y install curl wget python python-numpy python-scipy python-dev python-pip git-core vim
 
 RUN make global_dependencies
+
+WORKDIR /workdir
+ADD . /workdir
 
 # Caffe
 WORKDIR /workdir/frameworks/caffe
