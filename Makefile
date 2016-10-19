@@ -22,8 +22,6 @@ global_dependencies:
 	pip install cython
 	pip install scikit-learn
 	pip install bhtsne
-	pip install redis
-	pip install celery
 ifeq ($(GPU_SUPPORT),1)
 	@echo "Building with GPU support, installing CUDA/CUDNN"
 	-curl -O http://developer.download.nvidia.com/compute/cuda/repos/ubuntu1404/x86_64/cuda-repo-ubuntu1404_7.5-18_amd64.deb; \
