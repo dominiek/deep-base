@@ -40,7 +40,7 @@ endif
 
 .PHONY: clean_global_dependencies
 clean_global_dependencies:
-	apt-get remove -y g++ git-core curl gcc make cmake
+	apt-get remove -y g++ git-core curl
 ifeq ($(GPU_SUPPORT),1)
-	apt-get remove -y cuda-samples-7-5 cuda-documentation-7-5 cuda-visual-tools-7-5
+	apt-get remove -y cuda-visual-tools-7-5
 endif
