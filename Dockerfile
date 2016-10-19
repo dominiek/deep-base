@@ -12,10 +12,10 @@ ENV LUA_PATH="/root/.luarocks/share/lua/5.1/?.lua;/root/.luarocks/share/lua/5.1/
 RUN apt-get update --fix-missing
 RUN apt-get -y install curl wget python python-numpy python-scipy python-dev python-pip git-core vim
 
-RUN make global_dependencies
-
 WORKDIR /workdir
 ADD . /workdir
+
+RUN make global_dependencies
 
 # Caffe
 WORKDIR /workdir/frameworks/caffe
