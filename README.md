@@ -38,7 +38,7 @@ docker pull dominiek/deep-base:cpu
 You can now use any of the supported frameworks inside the Docker container:
 
 ```
-docker -it dominiek/deep-base:gpu python
+docker -it dominiek/deep-base:gpu --privileged python
 import tensorflow
 import matplotlib
 matplotlib.use('Agg')
@@ -50,7 +50,7 @@ To run code from the Host OS simply mount the source code dir:
 ```
 mkdir code
 echo 'import tensorflow' > code/app.py
-docker run --volume `pwd`/code:/code -it dominiek/deep-base:gpu python /code/app.py
+docker run --volume `pwd`/code:/code -it dominiek/deep-base:gpu --privileged python /code/app.py
 I tensorflow/stream_executor/dso_loader.cc:108] successfully opened CUDA library libcublas.so.7.5 locally
 I tensorflow/stream_executor/dso_loader.cc:108] successfully opened CUDA library libcudnn.so.5 locally
 I tensorflow/stream_executor/dso_loader.cc:108] successfully opened CUDA library libcufft.so.7.5 locally
