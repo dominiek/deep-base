@@ -8,10 +8,10 @@ dependencies:
 	apt-get update
 	echo "oracle-java8-installer shared/accepted-oracle-license-v1-1 select true" | sudo debconf-set-selections
 	apt-get -y install oracle-java8-installer unzip
-	wget "https://github.com/bazelbuild/bazel/releases/download/0.2.3/bazel-0.2.3-jdk7-installer-linux-x86_64.sh"
-	chmod +x bazel-0.2.3-jdk7-installer-linux-x86_64.sh
-	./bazel-0.2.3-jdk7-installer-linux-x86_64.sh
-	rm -f bazel-0.2.3-jdk7-installer-linux-x86_64.sh
+	wget "https://github.com/bazelbuild/bazel/releases/download/0.3.2/bazel-0.3.2-jdk7-installer-linux-x86_64.sh"
+	chmod +x bazel-0.3.2-jdk7-installer-linux-x86_64.sh
+	./bazel-0.3.2-jdk7-installer-linux-x86_64.sh
+	rm -f bazel-0.3.2-jdk7-installer-linux-x86_64.sh
 	bash /usr/local/lib/bazel/bin/bazel-complete.bash
 	apt-get -y install swig
 	pip install protobuf==3.0.0b2.post1
@@ -20,11 +20,13 @@ dependencies:
 .PHONY: src
 src:
 	git clone --recurse-submodules https://github.com/tensorflow/tensorflow src
+	cd src; git checkout v0.11.0rc0
 
 .PHONY: build
 build:
 ifeq ($(GPU_SUPPORT),1)
-	cd src; GCC_HOST_COMPILER_PATH=/usr/bin/gcc PYTHON_BIN_PATH=/usr/bin/python TF_NEED_GCP=0 CUDA_TOOLKIT_PATH="/usr/local/cuda" CUDNN_INSTALL_PATH="/usr/local/cuda" TF_NEED_CUDA=1 TF_CUDA_COMPUTE_CAPABILITIES="3.0" TF_CUDNN_VERSION="5" TF_CUDA_VERSION="7.5" TF_CUDA_VERSION_TOOLKIT=7.5 ./configure
+	cd src; echo "/usr/local/lib/python2.7/dist-packages" > configure_params.txt
+	cd src; GCC_HOST_COMPILER_PATH=/usr/bin/gcc PYTHON_BIN_PATH=/usr/bin/python TF_NEED_GCP=0 CUDA_TOOLKIT_PATH="/usr/local/cuda" CUDNN_INSTALL_PATH="/usr/local/cuda" TF_NEED_CUDA=1 TF_CUDA_COMPUTE_CAPABILITIES="3.0" TF_CUDNN_VERSION="5" TF_CUDA_VERSION="7.5" TF_CUDA_VERSION_TOOLKIT=7.5 TF_NEED_HDFS=0 ./configure < configure_params.txt
 	cd src; bazel build -c opt --config=cuda //tensorflow/tools/pip_package:build_pip_package
 else
 	cd src; PYTHON_BIN_PATH=/usr/bin/python TF_NEED_GCP=0 TF_NEED_CUDA=0 ./configure
