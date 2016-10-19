@@ -46,7 +46,7 @@ To run code from the Host OS simply mount the source code dir:
 ```
 mkdir code
 echo 'import tensorflow' > code/app.py
-docker run --volume `pwd`/code:/code -it dominiek/deep-base:gpu python /code/app.py
+docker run --priveledged --volume `pwd`/code:/code -it dominiek/deep-base:gpu python /code/app.py
 I tensorflow/stream_executor/dso_loader.cc:108] successfully opened CUDA library libcublas.so.7.5 locally
 I tensorflow/stream_executor/dso_loader.cc:108] successfully opened CUDA library libcudnn.so.5 locally
 I tensorflow/stream_executor/dso_loader.cc:108] successfully opened CUDA library libcufft.so.7.5 locally
