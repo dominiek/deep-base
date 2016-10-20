@@ -21,24 +21,14 @@ Other ML frameworks:
 - [Scikit-Image](http://scikit-image.org/)
 - [OpenFace](https://cmusatyalab.github.io/openface/)
 
-### Use the Docker image
+### Usage
 
-If you are running on a Linux host OS with CUDA-compatible hardware, use the `gpu` tag when pulling the Docker image:
+_For GPU usage see below_
 
-```
-docker pull dominiek/deep-base:gpu
-```
-
-Otherwise for CPU-only run:
+Run the latest version. All DL frameworks are available at your fingertips:
 
 ```
-docker pull dominiek/deep-base:cpu
-```
-
-You can now use any of the supported frameworks inside the Docker container:
-
-```
-docker -it dominiek/deep-base:gpu --privileged python
+docker run -it dominiek/deep-base:latest python
 import tensorflow
 import matplotlib
 matplotlib.use('Agg')
@@ -46,22 +36,48 @@ import caffe
 import openface
 ```
 
-To run code from the Host OS simply mount the source code dir:
+Or a specific version tag:
+
 ```
-mkdir code
-echo 'import tensorflow' > code/app.py
-docker run --volume `pwd`/code:/code -it dominiek/deep-base:gpu --privileged python /code/app.py
-I tensorflow/stream_executor/dso_loader.cc:108] successfully opened CUDA library libcublas.so.7.5 locally
-I tensorflow/stream_executor/dso_loader.cc:108] successfully opened CUDA library libcudnn.so.5 locally
-I tensorflow/stream_executor/dso_loader.cc:108] successfully opened CUDA library libcufft.so.7.5 locally
-I tensorflow/stream_executor/dso_loader.cc:108] successfully opened CUDA library libcuda.so locally
-I tensorflow/stream_executor/dso_loader.cc:108] successfully opened CUDA library libcurand.so.7.5 locally
+docker pull dominiek/deep-base:v1.0
 ```
 
 In order to use `deep-base` as a base for your deployment's docker container specify the right `FROM` directive following in your `Dockerfile`:
 
 ```
-FROM dominiek/deep-base:gpu
+FROM dominiek/deep-base:v1.0
+```
+
+To run code from the Host OS simply mount the source code dir:
+
+```
+mkdir code
+echo 'import tensorflow' > code/app.py
+docker run --volume `pwd`/code:/code -it dominiek/deep-base:latest python /code/app.py
+```
+
+### GPU Usage
+
+GPU support requires many additional libraries like Nvidia CUDA and CuDNN. There is a separate Docker repository for the GPU version:
+
+```
+FROM dominiek/deep-base-gpu:v1.0
+```
+
+Running the GPU image requires you to bind the host OS's CUDA libraries and devices. This requires the same CUDA version on the host OS as inside deep-base (Cuda 7.5)
+
+```bash
+export CUDA_SO=$(\ls /usr/lib/x86_64-linux-gnu/libcuda.* | xargs -I{} echo '-v {}:{}')
+export CUDA_DEVICES=$(\ls /dev/nvidia* | xargs -I{} echo '--device {}:{}')
+docker run --privileged $CUDA_SO $CUDA_DEVICES -it dominiek/deep-base-gpu /bin/bash
+```
+
+Now, to make sure that the GPU hardware is working correctly, use the `cuda_device_query` command inside the container:
+
+```bash
+root@37a895460633:/workdir# cuda_device_query
+...
+Result = PASS
 ```
 
 ### Build a customized Docker image
@@ -77,7 +93,7 @@ During the build process small tests will be done to make sure compiled Python b
 For GPU support (requires CUDA-compatible host hardware and Linux host OS):
 
 ```
-  GPU_SUPPORT=1 make docker.build
+  make docker.build.gpu
 ```
 
 ### Performance
@@ -88,6 +104,7 @@ Note however that on Windows and Mac OS X a virtual machine like VirtualBox is u
 
 ### TODO
 
+- Use newly released nvidia-docker
 - Create the MNIST example that can be run easily
 - Create a benchmark utility that shows performance of frameworks in running instance
 - Use OpenBlas for frameworks that support it
