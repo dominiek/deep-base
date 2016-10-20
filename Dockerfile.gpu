@@ -1,6 +1,6 @@
-FROM ubuntu:14.04
+FROM nvidia/cuda:7.5-cudnn5-devel
 
-ENV GPU_SUPPORT=0
+ENV GPU_SUPPORT=1
 ENV PYTHONPATH="/workdir/frameworks/mxnet/src/python:/workdir/frameworks/caffe/src/python:/workdir/frameworks/caffe/src/python:"
 ENV PATH="/workdir/frameworks/torch/src/install/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/local/cuda/bin"
 ENV DYLD_LIBRARY_PATH="/workdir/frameworks/torch/src/install/lib:"
@@ -84,4 +84,3 @@ RUN make load_test
 WORKDIR /workdir
 RUN make clean_global_dependencies
 RUN ln -s /dev/null /dev/raw1394
-RUN ln -s /usr/local/cuda-7.5 /usr/local/cuda
