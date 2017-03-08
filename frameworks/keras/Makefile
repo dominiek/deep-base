@@ -6,6 +6,7 @@ dependencies:
 .PHONY: src
 src:
 	git clone --recursive https://github.com/fchollet/keras.git src
+	cd src; git checkout 1.2.2
 
 .PHONY: build
 build:

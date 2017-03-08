@@ -10,6 +10,7 @@ dependencies:
 .PHONY: src
 src:
 	git clone --recursive https://github.com/cmusatyalab/openface.git src
+	cd src; git checkout 0.2.1
 
 .PHONY: build
 build:

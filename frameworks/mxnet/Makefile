@@ -6,6 +6,7 @@ dependencies:
 .PHONY: src
 src:
 	git clone --recursive https://github.com/dmlc/mxnet src
+	cd src; git checkout v0.9.3
 
 .PHONY: build
 build:

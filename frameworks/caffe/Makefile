@@ -15,6 +15,7 @@ dependencies:
 .PHONY: src
 src:
 	git clone --recursive https://github.com/BVLC/caffe.git src
+	cd src; git checkout rc5
 
 .PHONY: build
 build:

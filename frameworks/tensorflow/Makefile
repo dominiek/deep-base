@@ -20,16 +20,16 @@ dependencies:
 .PHONY: src
 src:
 	git clone --recurse-submodules https://github.com/tensorflow/tensorflow src
-	cd src; git checkout v0.11.0rc0
+	cd src; git checkout v1.0.1
 
 .PHONY: build
 build:
 ifeq ($(GPU_SUPPORT),1)
 	cd src; echo "/usr/local/lib/python2.7/dist-packages" > configure_params.txt
-	cd src; GCC_HOST_COMPILER_PATH=/usr/bin/gcc PYTHON_BIN_PATH=/usr/bin/python TF_NEED_GCP=0 CUDA_TOOLKIT_PATH="/usr/local/cuda" CUDNN_INSTALL_PATH="/usr/local/cuda" TF_NEED_CUDA=1 TF_CUDA_COMPUTE_CAPABILITIES="3.0" TF_CUDNN_VERSION="5" TF_CUDA_VERSION="7.5" TF_CUDA_VERSION_TOOLKIT=7.5 TF_NEED_HDFS=0 ./configure < configure_params.txt
+	cd src; TF_NEED_OPENCL=0 PYTHON_LIB_PATH=/usr/lib/python2.7/dist-packages TF_ENABLE_XLA=0 TF_NEED_HDFS=0 TF_NEED_JEMALLOC=1 CC_OPT_FLAGS="-march=native" GCC_HOST_COMPILER_PATH=/usr/bin/gcc PYTHON_BIN_PATH=/usr/bin/python TF_NEED_GCP=0 CUDA_TOOLKIT_PATH="/usr/local/cuda" CUDNN_INSTALL_PATH="/usr/local/cuda" TF_NEED_CUDA=1 TF_CUDA_COMPUTE_CAPABILITIES="3.0" TF_CUDNN_VERSION="5" TF_CUDA_VERSION="7.5" TF_CUDA_VERSION_TOOLKIT=7.5 TF_NEED_HDFS=0 ./configure < configure_params.txt
 	cd src; bazel build -c opt --config=cuda //tensorflow/tools/pip_package:build_pip_package
 else
-	cd src; PYTHON_BIN_PATH=/usr/bin/python TF_NEED_GCP=0 TF_NEED_CUDA=0 ./configure
+	cd src; TF_NEED_OPENCL=0 PYTHON_LIB_PATH=/usr/lib/python2.7/dist-packages TF_ENABLE_XLA=0 TF_NEED_HDFS=0 PYTHON_BIN_PATH=/usr/bin/python TF_NEED_JEMALLOC=1 CC_OPT_FLAGS="-march=native" TF_NEED_GCP=0 TF_NEED_CUDA=0 ./configure
 	cd src; bazel build -c opt //tensorflow/tools/pip_package:build_pip_package
 endif
 

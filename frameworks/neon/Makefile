@@ -6,6 +6,7 @@ dependencies:
 .PHONY: src
 src:
 	git clone --recursive https://github.com/NervanaSystems/neon.git src
+	cd src; git checkout v1.8.2
 
 .PHONY: build
 build:
