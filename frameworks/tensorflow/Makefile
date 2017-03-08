@@ -8,13 +8,13 @@ dependencies:
 	apt-get update
 	echo "oracle-java8-installer shared/accepted-oracle-license-v1-1 select true" | sudo debconf-set-selections
 	apt-get -y install oracle-java8-installer unzip
-	wget "https://github.com/bazelbuild/bazel/releases/download/0.3.2/bazel-0.3.2-jdk7-installer-linux-x86_64.sh"
-	chmod +x bazel-0.3.2-jdk7-installer-linux-x86_64.sh
-	./bazel-0.3.2-jdk7-installer-linux-x86_64.sh
-	rm -f bazel-0.3.2-jdk7-installer-linux-x86_64.sh
+	wget "https://github.com/bazelbuild/bazel/releases/download/0.4.4/bazel-0.4.4-installer-linux-x86_64.sh"
+	chmod +x bazel-0.4.4-installer-linux-x86_64.sh
+	./bazel-0.4.4-installer-linux-x86_64.sh
+	rm -f bazel-0.4.4-installer-linux-x86_64.sh
 	bash /usr/local/lib/bazel/bin/bazel-complete.bash
 	apt-get -y install swig
-	pip install protobuf==3.0.0b2.post1
+	pip install protobuf==3.2.0
 	pip install six --upgrade --target="/usr/lib/python2.7/dist-packages"
 
 .PHONY: src
