@@ -5,21 +5,22 @@ Today's deep learning frameworks require an extraordinary amount of work to inst
 
 Supported DL frameworks:
 
-- [Tensorflow](https://www.tensorflow.org/)
-- [Caffe](http://caffe.berkeleyvision.org/)
+- [Tensorflow](https://www.tensorflow.org/) (v1.0.1)
+- [Caffe](http://caffe.berkeleyvision.org/) (RC5)
 - [Theano](http://deeplearning.net/software/theano/)
-- [Keras](http://keras.io/)
-- [MXNet](http://mxnet.readthedocs.io/en/latest/)
+- [Keras](http://keras.io/) (v1.2.2)
+- [MXNet](http://mxnet.readthedocs.io/en/latest/) (v0.9.3)
 - [Torch](http://torch.ch/)
 - [Chainer](http://chainer.org/)
-- [Neon](http://neon.nervanasys.com/docs/latest/index.html)
+- [Neon](http://neon.nervanasys.com/docs/latest/index.html) (v1.8.2)
+- [Transferflow](http://github.com/dominiek/transferflow) (v1.8.2)
 
 Other ML frameworks:
 
 - Python / SciPy / Numpy / DLib
 - [Scikit-Learn](http://scikit-learn.org/stable/)
 - [Scikit-Image](http://scikit-image.org/)
-- [OpenFace](https://cmusatyalab.github.io/openface/)
+- [OpenFace](https://cmusatyalab.github.io/openface/) (v0.2.1)
 
 ### Usage
 
@@ -39,13 +40,13 @@ import openface
 Or a specific version tag:
 
 ```
-docker pull dominiek/deep-base:v1.0
+docker pull dominiek/deep-base:v1.2
 ```
 
 In order to use `deep-base` as a base for your deployment's docker container specify the right `FROM` directive following in your `Dockerfile`:
 
 ```
-FROM dominiek/deep-base:v1.0
+FROM dominiek/deep-base:v1.2
 ```
 
 To run code from the Host OS simply mount the source code dir:
@@ -61,7 +62,7 @@ docker run --volume `pwd`/code:/code -it dominiek/deep-base:latest python /code/
 GPU support requires many additional libraries like Nvidia CUDA and CuDNN. There is a separate Docker repository for the GPU version:
 
 ```
-FROM dominiek/deep-base-gpu:v1.0
+FROM dominiek/deep-base-gpu:v1.2
 ```
 
 Running the GPU image requires you to bind the host OS's CUDA libraries and devices. This requires the same CUDA version on the host OS as inside deep-base (Cuda 7.5)
@@ -104,8 +105,8 @@ Note however that on Windows and Mac OS X a virtual machine like VirtualBox is u
 
 ### TODO
 
-- Use newly released nvidia-docker
-- Create the MNIST example that can be run easily
+- Provide documentation for using `nvidia-docker` runtime
+- Add the MNIST example that can be run easily
 - Create a benchmark utility that shows performance of frameworks in running instance
 - Use OpenBlas for frameworks that support it
 - Reduce container size footprint of image
