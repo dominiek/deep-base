@@ -1,4 +1,4 @@
-FROM nvidia/cuda:7.5-cudnn5-devel
+FROM nvidia/cuda:8.0-cudnn5-devel-ubuntu14.04
 
 ENV GPU_SUPPORT=1
 ENV PYTHONPATH="/workdir/frameworks/mxnet/src/python:/workdir/frameworks/caffe/src/python:/workdir/frameworks/caffe/src/python:"

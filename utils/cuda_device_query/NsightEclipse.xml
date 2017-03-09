@@ -37,6 +37,7 @@
   <sm-arch>sm37</sm-arch>
   <sm-arch>sm50</sm-arch>
   <sm-arch>sm52</sm-arch>
+  <sm-arch>sm60</sm-arch>
   <supported_envs>
     <env>
       <arch>x86_64</arch>

@@ -84,4 +84,4 @@ RUN make load_test
 WORKDIR /workdir
 RUN make clean_global_dependencies
 RUN ln -s /dev/null /dev/raw1394
-RUN ln -s /usr/local/cuda-7.5 /usr/local/cuda
+RUN ln -s /usr/local/cuda-8.0 /usr/local/cuda

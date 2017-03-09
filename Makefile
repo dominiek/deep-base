@@ -1,5 +1,5 @@
 
-DEEP_BASE_VERSION = 1.0
+DEEP_BASE_VERSION = 1.1
 GPU_SUPPORT ?= 0
 
 .PHONY: docker.build.gpu
@@ -13,6 +13,24 @@ docker.build:
 	-@docker stop dominiek/deep-base
 	-@docker rm dominiek/deep-base
 	docker build -t dominiek/deep-base .
+
+.PHONY: docker.push.gpu
+docker.push.gpu:
+	docker push dominiek/deep-base-gpu:latest
+	docker push dominiek/deep-base-gpu:v$(DEEP_BASE_VERSION)
+
+.PHONY: docker.tag.gpu
+docker.tag.gpu:
+	docker tag dominiek/deep-base-gpu dominiek/deep-base-gpu:v$(DEEP_BASE_VERSION)
+
+.PHONY: docker.push
+docker.push:
+	docker push dominiek/deep-base:latest
+	docker push dominiek/deep-base:v$(DEEP_BASE_VERSION)
+
+.PHONY: docker.tag
+docker.tag:
+	docker tag dominiek/deep-base dominiek/deep-base:v$(DEEP_BASE_VERSION)
 
 .PHONY: docker.clean
 docker.clean:
