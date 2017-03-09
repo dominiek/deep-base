@@ -1,5 +1,5 @@
 
-DEEP_BASE_VERSION = 1.1
+DEEP_BASE_VERSION = 1.2
 GPU_SUPPORT ?= 0
 
 .PHONY: docker.build.gpu

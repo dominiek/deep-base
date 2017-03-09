@@ -80,6 +80,14 @@ RUN make build
 RUN make install
 RUN make load_test
 
+# Transferflow
+WORKDIR /workdir/frameworks/transferflow
+RUN make dependencies
+RUN make src
+RUN make build
+RUN make install
+RUN make load_test
+
 # Cleanup to make container smaller
 WORKDIR /workdir
 RUN make clean_global_dependencies
