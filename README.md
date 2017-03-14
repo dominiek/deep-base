@@ -13,7 +13,7 @@ Supported DL frameworks:
 - [Torch](http://torch.ch/)
 - [Chainer](http://chainer.org/)
 - [Neon](http://neon.nervanasys.com/docs/latest/index.html) (v1.8.2)
-- [Transferflow](http://github.com/dominiek/transferflow) (v1.8.2)
+- [Transferflow](http://github.com/dominiek/transferflow) (v0.1.4)
 
 Other ML frameworks:
 
