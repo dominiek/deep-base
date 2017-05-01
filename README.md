@@ -40,13 +40,13 @@ import openface
 Or a specific version tag:
 
 ```
-docker pull dominiek/deep-base:v1.2
+docker pull dominiek/deep-base:v1.3
 ```
 
 In order to use `deep-base` as a base for your deployment's docker container specify the right `FROM` directive following in your `Dockerfile`:
 
 ```
-FROM dominiek/deep-base:v1.2
+FROM dominiek/deep-base:v1.3
 ```
 
 To run code from the Host OS simply mount the source code dir:
@@ -62,10 +62,18 @@ docker run --volume `pwd`/code:/code -it dominiek/deep-base:latest python /code/
 GPU support requires many additional libraries like Nvidia CUDA and CuDNN. There is a separate Docker repository for the GPU version:
 
 ```
-FROM dominiek/deep-base-gpu:v1.2
+FROM dominiek/deep-base-gpu:v1.3
 ```
 
-Running the GPU image requires you to bind the host OS's CUDA libraries and devices. This requires the same CUDA version on the host OS as inside deep-base (Cuda 7.5)
+Running the GPU image requires you to bind the host OS's CUDA libraries and devices. This requires the same CUDA version on the host OS as inside deep-base (Cuda 8.0)
+
+The most reliable way to do this is to use [NVIDIA Docker](https://github.com/NVIDIA/nvidia-docker):
+
+```bash
+nvidia-docker run -it dominiek/deep-base-gpu /bin/bash
+```
+
+Alternatively, you can use vanilla docker and bind the devices:
 
 ```bash
 export CUDA_SO=$(\ls /usr/lib/x86_64-linux-gnu/libcuda.* | xargs -I{} echo '-v {}:{}')
@@ -105,7 +113,6 @@ Note however that on Windows and Mac OS X a virtual machine like VirtualBox is u
 
 ### TODO
 
-- Provide documentation for using `nvidia-docker` runtime
 - Add the MNIST example that can be run easily
 - Create a benchmark utility that shows performance of frameworks in running instance
 - Use OpenBlas for frameworks that support it
